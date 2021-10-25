@@ -1,7 +1,6 @@
 pipeline {
     agent any
 
-
         // Environment Variables
         environment {
         MAJOR = '1'
@@ -40,7 +39,8 @@ pipeline {
                       outputPath: "Output\\${env.BUILD_NUMBER}",
                       projectJsonPath: "project.json",
                       version: [$class: 'ManualVersionEntry', version: "${MAJOR}.${MINOR}.${env.BUILD_NUMBER}"],
-                      useOrchestrator: false
+                      useOrchestrator: false,
+					  traceLoggingLevel: "None"
         )
             }
         }
@@ -61,7 +61,8 @@ pipeline {
                 orchestratorAddress: "${UIPATH_ORCH_URL}",
                 orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}",
                 folderName: "${UIPATH_ORCH_FOLDER_NAME}",
-                environments: 'Avinash machine',
+                environments: 'Stage',
+				traceLoggingLevel: 'None',
                 //credentials: [$class: 'UserPassAuthenticationEntry', credentialsId: 'APIUserKey']
                 credentials: Token(accountName: "${UIPATH_ORCH_LOGICAL_NAME}", credentialsId: 'APIUserKey'),
 
